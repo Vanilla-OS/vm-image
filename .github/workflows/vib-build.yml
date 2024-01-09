@@ -1,0 +1,31 @@
+name: Vib Build
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+    REGISTRY_USER: ${{ github.actor }}
+    REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: vanilla-os/vib-gh-action@v0.3.2-2
+
+    - name: Build the Docker image
+      run: docker image build -f Containerfile --tag ghcr.io/vanilla-os/vm:main .
+
+   # Push the image to GHCR (Image Registry)
+    - name: Push To GHCR
+      if: github.repository == 'vanilla-os/vm-image'
+      run: |
+        docker login ghcr.io -u ${{ env.REGISTRY_USER }} -p ${{ env.REGISTRY_PASSWORD }}
+        docker image push "ghcr.io/vanilla-os/vm:main"
