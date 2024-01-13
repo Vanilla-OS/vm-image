@@ -38,6 +38,7 @@ modules:
 
 - name: fsguard
   type: fsguard
+  FsGuardLocation: "/usr/sbin/FsGuard"
   CustomFsGuard: false
   GenerateKey: true
   FilelistPaths: ["/usr/bin"]
