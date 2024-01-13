@@ -35,3 +35,16 @@ modules:
   - apt autoremove -y
   - apt clean
   - lpkg --lock
+
+- name: fsguard
+  type: fsguard
+  CustomFsGuard: false
+  GenerateKey: true
+  FilelistPaths: ["/usr/bin"]
+  modules:
+    - name: remove-prev-fsguard
+      type: shell
+      commands:
+        - rm -rf /FsGuard 
+        - rm -f ./minisign.pub ./minisign.key 
+        - chmod +x /usr/sbin/init
