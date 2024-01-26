@@ -29,6 +29,12 @@ modules:
     - virtualbox-guest-utils
     - virtualbox-guest-x11
 
+- name: qemu
+  type: apt
+  source:
+    packages:
+    - qemu-guest-agent
+
 - name: cleanup
   type: shell
   commands:
