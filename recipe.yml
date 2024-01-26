@@ -34,6 +34,7 @@ modules:
   source:
     packages:
     - qemu-guest-agent
+    - spice-webdavd
 
 - name: cleanup
   type: shell
