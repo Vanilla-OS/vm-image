@@ -1,58 +1,61 @@
-base: ghcr.io/vanilla-os/desktop:main
 name: Vanilla Desktop VM
 id: vanilla-vm
-labels:
-  maintainer: Vanilla OS Contributors
-args:
-  DEBIAN_FRONTEND: noninteractive
-runs:
-- echo 'APT::Install-Recommends "1";' > /etc/apt/apt.conf.d/01norecommends
+stages:
+- id: build
+  base: ghcr.io/vanilla-os/desktop:main
+  singlelayer: false
+  labels:
+    maintainer: Vanilla OS Contributors
+  args:
+    DEBIAN_FRONTEND: noninteractive
+  runs:
+  - echo 'APT::Install-Recommends "1";' > /etc/apt/apt.conf.d/01norecommends
 
-modules:
-- name: init-setup
-  type: shell
-  commands:
-  - lpkg --unlock
-  - apt update
-
-- name: vm-tools
-  type: apt
-  source:
-    packages:
-    - open-vm-tools 
-    - open-vm-tools-desktop
-
-- name: virtualbox-guest-additions
-  type: apt
-  source:
-    packages:
-    - virtualbox-guest-utils
-    - virtualbox-guest-x11
-
-- name: qemu
-  type: apt
-  source:
-    packages:
-    - qemu-guest-agent
-    - spice-webdavd
-
-- name: cleanup
-  type: shell
-  commands:
-  - apt autoremove -y
-  - apt clean
-  - lpkg --lock
-
-- name: fsguard
-  type: fsguard
-  FsGuardLocation: "/usr/sbin/FsGuard"
-  CustomFsGuard: false
-  GenerateKey: true
-  FilelistPaths: ["/usr/bin"]
   modules:
-    - name: remove-prev-fsguard
-      type: shell
-      commands:
-        - rm -rf /FsGuard 
-        - rm -f ./minisign.pub ./minisign.key 
-        - chmod +x /usr/sbin/init
+  - name: init-setup
+    type: shell
+    commands:
+    - lpkg --unlock
+    - apt update
+
+  - name: vm-tools
+    type: apt
+    source:
+      packages:
+      - open-vm-tools 
+      - open-vm-tools-desktop
+
+  - name: virtualbox-guest-additions
+    type: apt
+    source:
+      packages:
+      - virtualbox-guest-utils
+      - virtualbox-guest-x11
+
+  - name: qemu
+    type: apt
+    source:
+      packages:
+      - qemu-guest-agent
+      - spice-webdavd
+
+  - name: cleanup
+    type: shell
+    commands:
+    - apt autoremove -y
+    - apt clean
+    - lpkg --lock
+
+  - name: fsguard
+    type: fsguard
+    FsGuardLocation: "/usr/sbin/FsGuard"
+    CustomFsGuard: false
+    GenerateKey: true
+    FilelistPaths: ["/usr/bin"]
+    modules:
+      - name: remove-prev-fsguard
+        type: shell
+        commands:
+          - rm -rf /FsGuard 
+          - rm -f ./minisign.pub ./minisign.key 
+          - chmod +x /usr/sbin/init
