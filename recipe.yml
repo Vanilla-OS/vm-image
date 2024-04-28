@@ -37,6 +37,12 @@ stages:
     source:
       packages:
       - qemu-guest-agent
+
+  - name: spice
+    type: apt
+    source:
+      packages:
+      - spice-vdagent
       - spice-webdavd
 
   - name: cleanup
