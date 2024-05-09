@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/vanilla-os/vm:main
+    if: github.repository == 'vanilla-os/vm-image'
 
     steps:
       - uses: actions/checkout@v4
