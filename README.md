@@ -13,3 +13,11 @@ This image is based on top of [`vanillaos/desktop`](https://github.com/Vanilla-O
 vib build recipe.yml
 podman image build -t vanillaos/vm .
 ```
+
+## Verify Image Build Provenance Attestation
+
+All the image builds/pushes are attested for build provenance and integrity using the [attest-build-provenance`](https://github.com/actions/attest-build-provenance) action. The attestations can be verified [here](https://github.com/Vanilla-OS/vm-image/attestations) or by having the latest version of [GitHub CLI](https://github.com/cli/cli/releases/latest) installed in your system. Then, execute the following command:
+
+```sh
+gh attestation verify oci://ghcr.io/vanilla-os/vm:main --owner Vanilla-OS
+```
