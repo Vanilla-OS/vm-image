@@ -2,7 +2,7 @@ name: Vanilla Desktop VM
 id: vm
 stages:
 - id: build
-  base: ghcr.io/vanilla-os/desktop:main
+  base: ghcr.io/vanilla-os/desktop:dev
   singlelayer: false
   labels:
     maintainer: Vanilla OS Contributors
