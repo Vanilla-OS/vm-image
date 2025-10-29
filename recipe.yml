@@ -3,7 +3,7 @@ id: vm
 stages:
 - id: build
   base: ghcr.io/vanilla-os/desktop:dev
-  singlelayer: false
+  singlelayer: true
   labels:
     maintainer: Vanilla OS Contributors
   args:
