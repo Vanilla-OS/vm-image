@@ -1,8 +1,11 @@
 name: Vanilla Desktop VM
 id: vm
+vibversion: 1.0.6
+
 stages:
 - id: build
   base: ghcr.io/vanilla-os/desktop:dev
+  addincludes: true
   singlelayer: true
   labels:
     maintainer: Vanilla OS Contributors
@@ -21,30 +24,30 @@ stages:
 
   - name: vm-tools
     type: apt
-    source:
-      packages:
-      - open-vm-tools 
-      - open-vm-tools-desktop
+    sources:
+      - packages:
+        - open-vm-tools
+        - open-vm-tools-desktop
 
   - name: virtualbox-guest-additions
     type: apt
-    source:
-      packages:
-      - virtualbox-guest-utils
-      - virtualbox-guest-x11
+    sources:
+      - packages:
+        - virtualbox-guest-utils
+        - virtualbox-guest-x11
 
   - name: qemu
     type: apt
-    source:
-      packages:
-      - qemu-guest-agent
+    sources:
+      - packages:
+        - qemu-guest-agent
 
   - name: spice
     type: apt
-    source:
-      packages:
-      - spice-vdagent
-      - spice-webdavd
+    sources:
+      - packages:
+        - spice-vdagent
+        - spice-webdavd
 
   - name: cleanup
     type: shell
