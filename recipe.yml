@@ -35,6 +35,7 @@ stages:
       - packages:
         - virtualbox-guest-utils
         - virtualbox-guest-x11
+        only-arches: [amd64]
 
   - name: qemu
     type: apt
