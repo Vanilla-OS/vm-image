@@ -17,7 +17,7 @@ jobs:
     steps:
     - name: Verify Base Image Integrity
       run:
-        gh attestation verify oci://ghcr.io/vanilla-os/desktop:main --owner Vanilla-OS
+        gh attestation verify oci://ghcr.io/vanilla-os/gnome:latest --owner Vanilla-OS
       env:
         GH_TOKEN: ${{ github.token }}
 
@@ -28,7 +28,7 @@ jobs:
       contents: write # Allow actions to create release
       attestations: write # To create and write attestations
       id-token: write # Additional permissions for the persistence of the attestations
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
